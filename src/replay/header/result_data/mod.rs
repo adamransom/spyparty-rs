@@ -17,7 +17,7 @@ use utils;
 pub struct ResultData {
     /// The version of the result data.
     ///
-    /// Currently only versions 1 and 2 are supported.
+    /// Currently only versions 1, 2 and 3 are supported.
     pub version: u32,
     /// Whether or not this game was played with simple rules.
     ///
@@ -29,6 +29,8 @@ pub struct ResultData {
     pub game_mode: GameMode,
     /// The map the game was played on.
     pub map: Map,
+    /// The variant of the map layout (currently only used by Teien).
+    pub map_variant: u32,
     /// The missions that the spy selected.
     pub selected_missions: Vec<Mission>,
     /// The missions that the spy picked (for "Pick" game mode).
@@ -61,12 +63,16 @@ impl ResultData {
         result_data.set_game_result(reader)?;
         result_data.set_game_mode(reader)?;
         result_data.set_map(reader)?;
+
+        if replay_version >= 6 {
+            result_data.set_map_variant(reader)?;
+        }
+
         result_data.set_selected_missions(reader)?;
         result_data.set_picked_missions(reader)?;
         result_data.set_completed_missions(reader)?;
 
-        // Skip the rest
-        if result_data.version == 2 {
+        if result_data.version >= 2 {
             result_data.set_guests(reader)?;
             result_data.set_clock_start(reader)?;
         }
@@ -82,7 +88,7 @@ impl ResultData {
 
     /// Read and set the result data flags.
     ///
-    /// These flags include the version and whether the game was played with simple fules. Currently versions 1 and 2 are supported.
+    /// These flags include the version and whether the game was played with simple fules. Currently versions 1, 2 and 3 are supported.
     fn set_flags<R: Read>(&mut self, reader: &mut R) -> Result<()> {
         let flags = utils::read_u32(reader)?;
 
@@ -90,7 +96,7 @@ impl ResultData {
         let simple = (flags & 0xf0) == 0x10;
 
         ensure!(
-            version == 1 || version == 2,
+            version == 1 || version == 2 || version == 3,
             Error::UnsupportedResultVersion(version)
         );
 
@@ -128,6 +134,15 @@ impl ResultData {
         let map = utils::read_u32(reader)?;
 
         self.map = map.into();
+
+        Ok(())
+    }
+
+    /// Read and set the map variant.
+    ///
+    /// This is currently only used by the Teien map for the various layouts shoji panes.
+    fn set_map_variant<R: Read>(&mut self, reader: &mut R) -> Result<()> {
+        self.map_variant = utils::read_u32(reader)?;
 
         Ok(())
     }
@@ -205,12 +220,12 @@ mod tests {
 
     #[test]
     fn unsupported_version() {
-        let mut input: &[u8] = &[0x03, 0, 0, 0];
+        let mut input: &[u8] = &[0x04, 0, 0, 0];
         let mut data: ResultData = Default::default();
         let validated = data.set_flags(&mut input);
 
         match validated {
-            Err(Error::UnsupportedResultVersion(3)) => assert!(true),
+            Err(Error::UnsupportedResultVersion(4)) => assert!(true),
             _ => assert!(false),
         }
     }

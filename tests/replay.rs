@@ -5,6 +5,70 @@ use spyparty::Replay;
 use std::fs::File;
 
 #[test]
+fn valid_replay_v6() {
+    let mut file = File::open("tests/basicv6.replay").unwrap();
+
+    let replay = Replay::from_reader(&mut file).unwrap();
+
+    assert_eq!(replay.header.replay_version, 6);
+    assert_eq!(replay.header.protocol_version, 24);
+    assert_eq!(replay.header.spyparty_version, 6384);
+    assert_eq!(replay.header.flags, 1);
+    assert_eq!(replay.header.duration, 107f32);
+    assert_eq!(replay.header.game_id, 0x86024492814db1a6b8448b14e33e9c9b);
+    assert_eq!(replay.header.start_time, 1544305234);
+    assert_eq!(replay.header.play_id, 1);
+    assert_eq!(replay.header.spy_user_len, 10);
+    assert_eq!(replay.header.sniper_user_len, 7);
+    assert_eq!(replay.header.spy_display_len, 0);
+    assert_eq!(replay.header.sniper_display_len, 0);
+    assert_eq!(replay.header.latency, 0.75);
+    assert_eq!(replay.header.data_size, 33085);
+    assert_eq!(replay.header.spy_user_name, "krazycaley");
+    assert_eq!(replay.header.sniper_user_name, "checker");
+    assert_eq!(replay.header.spy_display_name, None);
+    assert_eq!(replay.header.sniper_display_name, None);
+    assert_eq!(replay.header.result_data.version, 3);
+    assert_eq!(replay.header.result_data.simple_rules, Some(false));
+    assert_eq!(replay.header.result_data.game_result, GameResult::CivilianShot);
+    assert_eq!(replay.header.result_data.game_mode, GameMode::Any(4, 8));
+    assert_eq!(replay.header.result_data.map, Map::Teien);
+    assert_eq!(replay.header.result_data.map_variant, 5);
+    assert_eq!(
+        replay.header.result_data.selected_missions,
+        vec![
+            Mission::BugAmbassador,
+            Mission::ContactDoubleAgent,
+            Mission::TransferMicrofilm,
+            Mission::SwapStatue,
+            Mission::InspectStatues,
+            Mission::SeduceTarget,
+            Mission::PurloinGuestList,
+            Mission::FingerprintAmbassador
+        ]
+    );
+    assert_eq!(
+        replay.header.result_data.picked_missions,
+        vec![
+            Mission::BugAmbassador,
+            Mission::ContactDoubleAgent,
+            Mission::TransferMicrofilm,
+            Mission::SwapStatue,
+            Mission::InspectStatues,
+            Mission::SeduceTarget,
+            Mission::PurloinGuestList,
+            Mission::FingerprintAmbassador
+        ]
+    );
+    assert_eq!(
+        replay.header.result_data.completed_missions,
+        vec![Mission::BugAmbassador, Mission::TransferMicrofilm, Mission::InspectStatues]
+    );
+    assert_eq!(replay.header.result_data.guests, Some(14));
+    assert_eq!(replay.header.result_data.clock_start, Some(210));
+}
+
+#[test]
 fn valid_replay_v5() {
     let mut file = File::open("tests/basicv5.replay").unwrap();
 

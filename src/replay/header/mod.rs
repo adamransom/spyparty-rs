@@ -13,7 +13,7 @@ use utils;
 pub struct Header {
     /// The version of the replay.
     ///
-    /// Currently only versions 3, 4 and 5 are supported.
+    /// Currently only versions 3 to 6 are supported.
     pub replay_version: u32,
     /// The verion of the protocol.
     pub protocol_version: u32,
@@ -80,7 +80,7 @@ impl Header {
         header.set_spy_user_len(reader)?;
         header.set_sniper_user_len(reader)?;
 
-        if header.replay_version == 5 {
+        if header.replay_version >= 5 {
             header.set_spy_display_len(reader)?;
             header.set_sniper_display_len(reader)?;
             header.skip_unused(reader)?;
@@ -109,12 +109,12 @@ impl Header {
 
     /// Read and set the replay version.
     ///
-    /// Currently versions 3, 4 and 5 are supported.
+    /// Currently versions 3 to 6 are supported.
     fn set_replay_version<R: Read>(&mut self, reader: &mut R) -> Result<()> {
         let version = utils::read_u32(reader)?;
 
         ensure!(
-            version == 3 || version == 4 || version == 5,
+            version >= 3 && version <=6,
             Error::UnsupportedReplayVersion(version)
         );
 
