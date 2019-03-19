@@ -3,15 +3,15 @@ pub mod game_result;
 pub mod map;
 pub mod mission;
 
-pub use self::game_mode::GameMode;
-pub use self::game_result::GameResult;
-pub use self::map::Map;
-pub use self::mission::Mission;
+pub use game_mode::GameMode;
+pub use game_result::GameResult;
+pub use map::Map;
+pub use mission::Mission;
 
-use replay::header::{Error, Result};
+use super::{Error, Result};
 use std::convert::TryInto;
 use std::io::Read;
-use utils;
+use crate::utils;
 
 #[derive(Debug, Default)]
 pub struct ResultData {

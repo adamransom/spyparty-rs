@@ -2,6 +2,7 @@
 name = "spyparty"
 version = "0.1.0"
 authors = ["Adam Ransom"]
+edition = "2018"
 
 [dependencies]
 regex = "1"

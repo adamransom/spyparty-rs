@@ -2,11 +2,11 @@
 pub mod error;
 pub mod result_data;
 
-pub use self::error::{Error, Result};
-pub use self::result_data::{GameMode, GameResult, Map, Mission, ResultData};
+pub use error::{Error, Result};
+pub use result_data::{GameMode, GameResult, Map, Mission, ResultData};
 
 use std::io::Read;
-use utils;
+use crate::utils;
 
 /// The header of a replay.
 #[derive(Debug, Default)]

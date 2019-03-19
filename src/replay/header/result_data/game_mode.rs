@@ -1,5 +1,5 @@
 use regex::Regex;
-use replay::header::{Error, Result};
+use super::{Error, Result};
 use std::convert::TryFrom;
 
 /// The game mode of a game.

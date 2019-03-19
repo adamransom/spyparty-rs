@@ -1,4 +1,4 @@
-use replay::header::{Error, Result};
+use super::{Error, Result};
 use std::convert::TryFrom;
 use std::fmt;
 
