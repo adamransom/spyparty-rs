@@ -15,6 +15,7 @@ pub enum Map {
     Pub,
     Terrace,
     Veranda,
+    Teien,
     Unknown(u32),
 }
 
@@ -40,6 +41,7 @@ impl fmt::Display for Map {
                 Map::Pub => "Pub",
                 Map::Terrace => "Terrace",
                 Map::Veranda => "Veranda",
+                Map::Teien => "Teien",
                 Map::Unknown(_) => "Unknown",
             }
         )
@@ -59,6 +61,7 @@ impl From<u32> for Map {
             0x3b85fff3 => Map::Pub,
             0x9032ce22 => Map::Terrace,
             0x6f81a558 => Map::Veranda,
+            0x79dfa0cf => Map::Teien,
             _ => Map::Unknown(map),
         }
     }
@@ -81,6 +84,7 @@ impl<'a> TryFrom<&'a str> for Map {
             "pub" => Map::Pub,
             "terrace" => Map::Terrace,
             "veranda" => Map::Veranda,
+            "teien" => Map::Teien,
             _ => bail!(Error::UnknownMap(string.to_string())),
         })
     }
