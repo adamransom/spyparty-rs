@@ -38,7 +38,7 @@ impl<'a> TryFrom<&'a str> for GameResult {
     fn try_from(string: &'a str) -> Result<Self> {
         let stripped = string.to_ascii_lowercase().replace(" ", "");
 
-        Ok(match stripped.as_ref() {
+        Ok(match stripped.as_str() {
             "missionswin" => GameResult::MissionsWin,
             "timeout" => GameResult::SpyTimeout,
             "spyshot" => GameResult::SpyShot,

@@ -33,7 +33,7 @@ impl Replay {
             return true;
         }
 
-        if let Some(ref display_name) = self.header.spy_display_name {
+        if let Some(display_name) = &self.header.spy_display_name {
             return display_name == name;
         }
 
@@ -46,7 +46,7 @@ impl Replay {
             return true;
         }
 
-        if let Some(ref display_name) = self.header.sniper_display_name {
+        if let Some(display_name) = &self.header.sniper_display_name {
             return display_name == name;
         }
 

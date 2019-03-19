@@ -95,7 +95,7 @@ impl<'a> TryFrom<&'a str> for Mission {
     fn try_from(string: &'a str) -> Result<Self> {
         let stripped = string.to_ascii_lowercase().replace(" ", "");
 
-        Ok(match stripped.as_ref() {
+        Ok(match stripped.as_str() {
             "bugambassador" | "bug" => Mission::BugAmbassador,
             "contactdoubleagent" | "contactda" | "contact" | "bb" => Mission::ContactDoubleAgent,
             "fingerprintambassador" | "fingerprint" | "fp" => Mission::FingerprintAmbassador,
