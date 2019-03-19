@@ -30,7 +30,10 @@ fn valid_replay_v6() {
     assert_eq!(replay.header.sniper_display_name, None);
     assert_eq!(replay.header.result_data.version, 3);
     assert_eq!(replay.header.result_data.simple_rules, Some(false));
-    assert_eq!(replay.header.result_data.game_result, GameResult::CivilianShot);
+    assert_eq!(
+        replay.header.result_data.game_result,
+        GameResult::CivilianShot
+    );
     assert_eq!(replay.header.result_data.game_mode, GameMode::Any(4, 8));
     assert_eq!(replay.header.result_data.map, Map::Teien);
     assert_eq!(replay.header.result_data.map_variant, 5);
@@ -62,7 +65,11 @@ fn valid_replay_v6() {
     );
     assert_eq!(
         replay.header.result_data.completed_missions,
-        vec![Mission::BugAmbassador, Mission::TransferMicrofilm, Mission::InspectStatues]
+        vec![
+            Mission::BugAmbassador,
+            Mission::TransferMicrofilm,
+            Mission::InspectStatues
+        ]
     );
     assert_eq!(replay.header.result_data.guests, Some(14));
     assert_eq!(replay.header.result_data.clock_start, Some(210));

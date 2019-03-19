@@ -9,9 +9,9 @@ pub use map::Map;
 pub use mission::Mission;
 
 use super::{Error, Result};
+use crate::utils;
 use std::convert::TryInto;
 use std::io::Read;
-use crate::utils;
 
 #[derive(Debug, Default)]
 pub struct ResultData {

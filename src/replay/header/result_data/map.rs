@@ -51,17 +51,17 @@ impl fmt::Display for Map {
 impl From<u32> for Map {
     fn from(map: u32) -> Self {
         match map {
-            0x1dbd8e41 => Map::Balcony,
-            0x5b121925 => Map::Ballroom,
-            0x9dc5bb5e => Map::Courtyard,
-            0x7173b8bf => Map::Gallery,
-            0x1a56c5a1 => Map::HighRise,
-            0x168f4f62 => Map::Library,
-            0x2e37f15b => Map::Moderne,
-            0x3b85fff3 => Map::Pub,
-            0x9032ce22 => Map::Terrace,
-            0x6f81a558 => Map::Veranda,
-            0x79dfa0cf => Map::Teien,
+            0x1dbd_8e41 => Map::Balcony,
+            0x5b12_1925 => Map::Ballroom,
+            0x9dc5_bb5e => Map::Courtyard,
+            0x7173_b8bf => Map::Gallery,
+            0x1a56_c5a1 => Map::HighRise,
+            0x168f_4f62 => Map::Library,
+            0x2e37_f15b => Map::Moderne,
+            0x3b85_fff3 => Map::Pub,
+            0x9032_ce22 => Map::Terrace,
+            0x6f81_a558 => Map::Veranda,
+            0x79df_a0cf => Map::Teien,
             _ => Map::Unknown(map),
         }
     }

@@ -1,5 +1,5 @@
-use regex::Regex;
 use super::{Error, Result};
+use regex::Regex;
 use std::convert::TryFrom;
 
 /// The game mode of a game.
@@ -23,11 +23,11 @@ impl TryFrom<u32> for GameMode {
     type Error = Error;
 
     fn try_from(mode: u32) -> Result<Self> {
-        let required = (mode & 0x000000ff) as u8;
+        let required = (mode & 0x0000_00ff) as u8;
         // Thanks to LtHummus for tbis trick :)
-        let total = ((mode & 0x0fffc00) >> 14) as u16;
+        let total = ((mode & 0x00ff_fc00) >> 14) as u16;
 
-        match mode & 0xff000000 {
+        match mode & 0xff_000000 {
             0x00_000000 => Ok(GameMode::Known(required)),
             0x10_000000 => Ok(GameMode::Pick(required, total)),
             0x20_000000 => Ok(GameMode::Any(required, total)),

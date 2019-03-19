@@ -5,8 +5,8 @@ pub mod result_data;
 pub use error::{Error, Result};
 pub use result_data::{GameMode, GameResult, Map, Mission, ResultData};
 
-use std::io::Read;
 use crate::utils;
+use std::io::Read;
 
 /// The header of a replay.
 #[derive(Debug, Default)]
@@ -114,7 +114,7 @@ impl Header {
         let version = utils::read_u32(reader)?;
 
         ensure!(
-            version >= 3 && version <=6,
+            version >= 3 && version <= 6,
             Error::UnsupportedReplayVersion(version)
         );
 
