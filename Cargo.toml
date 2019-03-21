@@ -1,8 +1,12 @@
 [package]
 name = "spyparty"
 version = "0.1.0"
-authors = ["Adam Ransom"]
+authors = ["Adam Ransom <v0id.gmr@gmail.com>"]
 edition = "2018"
+license= "MIT"
+description = "A library for parsing SpyParty replays"
+homepage = "https://github.com/adamransom/spyparty-rs"
+repository = "https://github.com/adamransom/spyparty-rs"
 
 [dependencies]
 regex = "1"
