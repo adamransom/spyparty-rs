@@ -1,4 +1,4 @@
-use super::{Error, Result};
+use crate::{Error, Result};
 use std::convert::TryFrom;
 
 /// The result of a game.

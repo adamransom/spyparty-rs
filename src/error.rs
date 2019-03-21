@@ -71,7 +71,6 @@ impl From<std::string::FromUtf8Error> for Error {
 }
 
 /// Simple macro to allow returning early with an error.
-#[macro_export]
 macro_rules! bail {
     ($e:expr) => {
         return Err($e);
@@ -79,7 +78,6 @@ macro_rules! bail {
 }
 
 /// Simple macro to allow returning early with an error if a condition isn't satisfied.
-#[macro_export]
 macro_rules! ensure {
     ($cond:expr, $e:expr) => {
         if !($cond) {

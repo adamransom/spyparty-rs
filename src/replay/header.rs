@@ -1,11 +1,9 @@
-#[macro_use]
-pub mod error;
 pub mod result_data;
 
-pub use error::{Error, Result};
-pub use result_data::{GameMode, GameResult, Map, Mission, ResultData};
+pub use result_data::ResultData;
 
 use crate::utils;
+use crate::{Error, Result};
 use std::io::Read;
 
 /// The header of a replay.

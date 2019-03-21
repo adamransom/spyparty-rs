@@ -1,7 +1,7 @@
 extern crate spyparty;
 
-use spyparty::replay::{GameMode, GameResult, Map, Mission};
 use spyparty::Replay;
+use spyparty::{GameMode, GameResult, Map, Mission};
 use std::fs::File;
 
 #[test]

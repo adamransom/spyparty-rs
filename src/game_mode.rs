@@ -1,4 +1,4 @@
-use super::{Error, Result};
+use crate::{Error, Result};
 use regex::Regex;
 use std::convert::TryFrom;
 

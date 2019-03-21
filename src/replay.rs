@@ -1,9 +1,8 @@
-mod header;
+pub mod header;
 
 pub use header::Header;
-pub use header::{GameMode, GameResult, Map, Mission};
 
-use header::Result;
+use crate::{GameResult, Result};
 use std::io::Read;
 
 #[derive(Default)]

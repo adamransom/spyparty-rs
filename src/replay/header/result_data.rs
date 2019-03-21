@@ -1,15 +1,5 @@
-pub mod game_mode;
-pub mod game_result;
-pub mod map;
-pub mod mission;
-
-pub use game_mode::GameMode;
-pub use game_result::GameResult;
-pub use map::Map;
-pub use mission::Mission;
-
-use super::{Error, Result};
 use crate::utils;
+use crate::{Error, GameMode, GameResult, Map, Mission, Result};
 use std::convert::TryInto;
 use std::io::Read;
 

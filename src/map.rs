@@ -1,4 +1,4 @@
-use super::{Error, Result};
+use crate::{Error, Result};
 use std::convert::TryFrom;
 use std::fmt;
 
