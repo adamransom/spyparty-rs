@@ -1,12 +1,26 @@
 # spyparty-rs
 
-This Rust crate allows simple parsing of [SpyParty][1] replays.
+[![Latest version](https://img.shields.io/crates/v/spyparty.svg)](https://crates.io/crates/spyparty)
+[![Documentation](https://docs.rs/spyparty/badge.svg)](https://docs.rs/spyparty)
+![Minimum rustc version](https://img.shields.io/badge/rustc-1.34+-yellow.svg)
+![License](https://img.shields.io/crates/l/spyparty.svg)
+
+A Rust library that parses [SpyParty][1] replays.
 
 It parses everything that is currently documented about the header, but the rest of the replay is currently undocumented (and constantly changing) and therefore not parsed.
 
 It currently supports versions 3 to 6 (the most current) of the replay.
 
-# Examples
+# Usage
+
+Add this to your `Cargo.toml`:
+
+```toml
+[dependencies]
+spyparty = "0.1"
+```
+
+and then try:
 
 ```rust
 use std::fs::File;
