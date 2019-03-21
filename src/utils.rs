@@ -1,4 +1,3 @@
-use byteorder::{ByteOrder, LittleEndian};
 use std::io::{Read, Result};
 
 /// Read u8 values from a series of bytes.
@@ -16,7 +15,7 @@ pub fn read_u16<R: Read>(reader: &mut R) -> Result<u16> {
     let mut buf = [0; 2];
     reader.read_exact(&mut buf)?;
 
-    let val = LittleEndian::read_u16(&buf);
+    let val = u16::from_le_bytes(buf);
 
     Ok(val)
 }
@@ -28,7 +27,7 @@ pub fn read_u32<R: Read>(reader: &mut R) -> Result<u32> {
     let mut buf = [0; 4];
     reader.read_exact(&mut buf)?;
 
-    let val = LittleEndian::read_u32(&buf);
+    let val = u32::from_le_bytes(buf);
 
     Ok(val)
 }
@@ -40,7 +39,7 @@ pub fn read_u128<R: Read>(reader: &mut R) -> Result<u128> {
     let mut buf = [0; 16];
     reader.read_exact(&mut buf)?;
 
-    let val = LittleEndian::read_u128(&buf);
+    let val = u128::from_le_bytes(buf);
 
     Ok(val)
 }
@@ -52,7 +51,7 @@ pub fn read_f32<R: Read>(reader: &mut R) -> Result<f32> {
     let mut buf = [0; 4];
     reader.read_exact(&mut buf)?;
 
-    let val = LittleEndian::read_f32(&buf);
+    let val = f32::from_bits(u32::from_le_bytes(buf));
 
     Ok(val)
 }
