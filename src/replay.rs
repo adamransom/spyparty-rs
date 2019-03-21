@@ -5,6 +5,10 @@ pub use header::Header;
 use crate::{GameResult, Result};
 use std::io::Read;
 
+/// A SpyParty replay.
+///
+/// This contains a few useful functions for dealing with a replay, such as checking if a
+/// replay contains a specific player.
 #[derive(Default)]
 pub struct Replay {
     /// The header of the replay.
