@@ -1,5 +1,5 @@
 /*!
-  This crate allows simple parsing of [SpyParty][1] replays.
+  A Rust library for parsing [SpyParty][1] replays.
 
   It parses everything that is currently documented about the header, but the rest of the replay is currently undocumented (and constantly changing) and therefore not parsed.
 
@@ -25,7 +25,7 @@
 
   [1]: http://www.spyparty.com
   [2]: https://github.com/LtHummus/SpyPartyParse
-  [3]: https://secure.spyparty.com/beta/forums/viewtopic.php?f=8&t=2309&p=50270
+  [3]: https://secure.spyparty.com/beta/forums/viewtopic.php?f=8&t=2309
 */
 #[macro_use]
 mod error;
