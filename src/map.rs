@@ -5,6 +5,7 @@ use std::fmt;
 /// The maps of SpyParty.
 #[derive(Debug, PartialEq)]
 pub enum Map {
+    Aquarium,
     Balcony,
     Ballroom,
     Courtyard,
@@ -31,6 +32,7 @@ impl fmt::Display for Map {
             f,
             "{}",
             match self {
+                Map::Aquarium => "Aquarium",
                 Map::Balcony => "Balcony",
                 Map::Ballroom => "Ballroom",
                 Map::Courtyard => "Courtyard",
@@ -51,6 +53,7 @@ impl fmt::Display for Map {
 impl From<u32> for Map {
     fn from(map: u32) -> Self {
         match map {
+            0x98e4_5d99 => Map::Aquarium,
             0x1dbd_8e41 => Map::Balcony,
             0x5b12_1925 => Map::Ballroom,
             0x9dc5_bb5e => Map::Courtyard,
@@ -74,6 +77,7 @@ impl<'a> TryFrom<&'a str> for Map {
         let stripped = string.to_ascii_lowercase().replace(" ", "");
 
         Ok(match stripped.as_str() {
+            "aquarium" => Map::Aquarium,
             "balcony" => Map::Balcony,
             "ballroom" => Map::Ballroom,
             "courtyard" => Map::Courtyard,
