@@ -25,6 +25,22 @@ impl Replay {
         Ok(Replay { header })
     }
 
+    pub fn spy_name(&self) -> &String {
+        if let Some(name) = &self.header.spy_display_name {
+            return name;
+        } else {
+            return &self.header.spy_user_name;
+        }
+    }
+
+    pub fn sniper_name(&self) -> &String {
+        if let Some(name) = &self.header.sniper_display_name {
+            return name;
+        } else {
+            return &self.header.sniper_user_name;
+        }
+    }
+
     /// Checks if the replay contains a particular player.
     pub fn has_player(&self, name: &str) -> bool {
         self.has_spy(name) || self.has_sniper(name)
@@ -85,6 +101,40 @@ impl Replay {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn spy_name_user_name() {
+        let mut replay: Replay = Default::default();
+        replay.header.spy_user_name = "test".to_string();
+
+        assert_eq!(replay.spy_name(), "test");
+    }
+
+    #[test]
+    fn spy_name_display_name() {
+        let mut replay: Replay = Default::default();
+        replay.header.spy_user_name = "test".to_string();
+        replay.header.spy_display_name = Some("Test".to_string());
+
+        assert_eq!(replay.spy_name(), "Test");
+    }
+
+    #[test]
+    fn sniper_name_user_name() {
+        let mut replay: Replay = Default::default();
+        replay.header.sniper_user_name = "test".to_string();
+
+        assert_eq!(replay.sniper_name(), "test");
+    }
+
+    #[test]
+    fn sniper_name_display_name() {
+        let mut replay: Replay = Default::default();
+        replay.header.sniper_user_name = "test".to_string();
+        replay.header.sniper_display_name = Some("Test".to_string());
+
+        assert_eq!(replay.sniper_name(), "Test");
+    }
 
     #[test]
     fn has_player_spy_user_name() {
