@@ -45,25 +45,30 @@ impl<'a> TryFrom<&'a str> for GameMode {
         //    Known 4 of 4
         //    Any 4/8
         //    p3/5
-        let re = Regex::new(r"^(?P<mode>\w+)(?P<required>\d)(/|of)(?P<total>\d)$").unwrap();
+        let re = Regex::new(r"^(?P<mode>[a-z]+)(?P<required>\d)((/|of)(?P<total>\d))?$").unwrap();
 
         if let Some(caps) = re.captures(&stripped) {
-            // Make sure all matches are present
-            if caps.len() == 5 {
-                let required: u8 = caps["required"]
-                    .parse()
-                    .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
-                let total: u16 = caps["total"]
-                    .parse()
-                    .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
+            println!("{:?}", caps);
+            let required: u8 = caps["required"]
+                .parse()
+                .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
 
-                return Ok(match &caps["mode"] {
-                    "any" | "a" => GameMode::Any(required, total),
-                    "pick" | "p" => GameMode::Pick(required, total),
-                    "known" | "k" => GameMode::Known(required),
-                    _ => bail!(Error::UnknownGameMode(string.to_string())),
-                });
-            }
+            return Ok(match &caps["mode"] {
+                "any" | "a" => {
+                    let total: u16 = caps["total"]
+                        .parse()
+                        .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
+                    GameMode::Any(required, total)
+                }
+                "pick" | "p" => {
+                    let total: u16 = caps["total"]
+                        .parse()
+                        .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
+                    GameMode::Pick(required, total)
+                }
+                "known" | "k" => GameMode::Known(required),
+                _ => bail!(Error::UnknownGameMode(string.to_string())),
+            });
         }
 
         Err(Error::UnknownGameMode(string.to_string()))
@@ -127,7 +132,7 @@ mod tests {
 
     #[test]
     fn string_into_known_game_mode() {
-        let result: GameMode = "pick 5/5".try_into().unwrap();
-        assert_eq!(result, GameMode::Pick(5, 5));
+        let result: GameMode = "k5".try_into().unwrap();
+        assert_eq!(result, GameMode::Known(5));
     }
 }
