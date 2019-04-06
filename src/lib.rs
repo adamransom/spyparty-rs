@@ -3,7 +3,7 @@
 
   It parses everything that is currently documented about the header, but the rest of the replay is currently undocumented (and constantly changing) and therefore not parsed.
 
-  It currently supports versions 3 to 6 (the most current) of the replay.
+  It currently supports versions 2 to 6 (the most current) of the replay.
 
   # Examples
 
