@@ -9,7 +9,7 @@ use std::io::Read;
 ///
 /// This contains a few useful functions for dealing with a replay, such as checking if a
 /// replay contains a specific player.
-#[derive(Default)]
+#[derive(Debug, Default)]
 pub struct Replay {
     /// The header of the replay.
     ///
