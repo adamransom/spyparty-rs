@@ -1,4 +1,5 @@
 use crate::{Error, Result};
+use lazy_static::lazy_static;
 use regex::Regex;
 use std::convert::TryFrom;
 
@@ -45,9 +46,12 @@ impl<'a> TryFrom<&'a str> for GameMode {
         //    Known 4 of 4
         //    Any 4/8
         //    p3/5
-        let re = Regex::new(r"^(?P<mode>[a-z]+)(?P<required>\d)((/|of)(?P<total>\d))?$").unwrap();
+        lazy_static! {
+            static ref RE: Regex =
+                Regex::new(r"^(?P<mode>[a-z]+)(?P<required>\d)((/|of)(?P<total>\d))?$").unwrap();
+        }
 
-        if let Some(caps) = re.captures(&stripped) {
+        if let Some(caps) = RE.captures(&stripped) {
             println!("{:?}", caps);
             let required: u8 = caps["required"]
                 .parse()
