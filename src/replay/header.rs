@@ -11,7 +11,7 @@ use std::io::Read;
 pub struct Header {
     /// The version of the replay.
     ///
-    /// Currently only versions 3 to 6 are supported.
+    /// Currently only versions 2 to 6 are supported.
     pub replay_version: u32,
     /// The verion of the protocol.
     pub protocol_version: u32,
@@ -107,12 +107,12 @@ impl Header {
 
     /// Read and set the replay version.
     ///
-    /// Currently versions 3 to 6 are supported.
+    /// Currently versions 2 to 6 are supported.
     fn set_replay_version<R: Read>(&mut self, reader: &mut R) -> Result<()> {
         let version = utils::read_u32(reader)?;
 
         ensure!(
-            version >= 3 && version <= 6,
+            version >= 2 && version <= 6,
             Error::UnsupportedReplayVersion(version)
         );
 
@@ -359,12 +359,12 @@ mod tests {
 
     #[test]
     fn unsupported_version() {
-        let mut input: &[u8] = &[2, 0, 0, 0];
+        let mut input: &[u8] = &[1, 0, 0, 0];
         let mut header: Header = Default::default();
         let validated = header.set_replay_version(&mut input);
 
         match validated {
-            Err(Error::UnsupportedReplayVersion(2)) => assert!(true),
+            Err(Error::UnsupportedReplayVersion(1)) => assert!(true),
             _ => assert!(false),
         }
     }

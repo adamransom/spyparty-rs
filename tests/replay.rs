@@ -253,6 +253,75 @@ fn valid_replay_v3() {
 }
 
 #[test]
+fn valid_replay_v2() {
+    let mut file = File::open("tests/basicv2.replay").unwrap();
+
+    let replay = Replay::from_reader(&mut file).unwrap();
+
+    assert_eq!(replay.header.replay_version, 2);
+    assert_eq!(replay.header.protocol_version, 2);
+    assert_eq!(replay.header.spyparty_version, 3239);
+    assert_eq!(replay.header.flags, 0);
+    assert_eq!(replay.header.duration, 222.11592);
+    assert_eq!(replay.header.game_id, 0x8407e72e6c344e894c0fa272c92db6c8);
+    assert_eq!(replay.header.start_time, 1393450698);
+    assert_eq!(replay.header.play_id, 1);
+    assert_eq!(replay.header.spy_user_len, 3);
+    assert_eq!(replay.header.sniper_user_len, 6);
+    assert_eq!(replay.header.spy_display_len, 0);
+    assert_eq!(replay.header.sniper_display_len, 0);
+    assert_eq!(replay.header.latency, 0.75);
+    assert_eq!(replay.header.data_size, 124079);
+    assert_eq!(replay.header.spy_user_name, "you");
+    assert_eq!(replay.header.sniper_user_name, "nobody");
+    assert_eq!(replay.header.spy_display_name, None);
+    assert_eq!(replay.header.sniper_display_name, None);
+    assert_eq!(replay.header.result_data.version, 0);
+    assert_eq!(replay.header.result_data.simple_rules, None);
+    assert_eq!(replay.header.result_data.game_result, GameResult::MissionsWin);
+    assert_eq!(replay.header.result_data.game_mode, GameMode::Known(7));
+    assert_eq!(replay.header.result_data.map, Map::OldVeranda);
+    assert_eq!(
+        replay.header.result_data.selected_missions,
+        vec![
+            Mission::BugAmbassador,
+            Mission::ContactDoubleAgent,
+            Mission::TransferMicrofilm,
+            Mission::SwapStatue,
+            Mission::InspectStatues,
+            Mission::SeduceTarget,
+            Mission::PurloinGuestList,
+        ]
+    );
+    assert_eq!(
+        replay.header.result_data.picked_missions,
+        vec![
+            Mission::BugAmbassador,
+            Mission::ContactDoubleAgent,
+            Mission::TransferMicrofilm,
+            Mission::SwapStatue,
+            Mission::InspectStatues,
+            Mission::SeduceTarget,
+            Mission::PurloinGuestList,
+        ]
+    );
+    assert_eq!(
+        replay.header.result_data.completed_missions,
+        vec![
+            Mission::BugAmbassador,
+            Mission::ContactDoubleAgent,
+            Mission::TransferMicrofilm,
+            Mission::SwapStatue,
+            Mission::InspectStatues,
+            Mission::SeduceTarget,
+            Mission::PurloinGuestList,
+        ]
+    );
+    assert_eq!(replay.header.result_data.guests, None);
+    assert_eq!(replay.header.result_data.clock_start, None);
+}
+
+#[test]
 fn invalid_replay() {
     let mut file = File::open("tests/broken.replay").unwrap();
 
