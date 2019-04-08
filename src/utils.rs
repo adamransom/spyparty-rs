@@ -55,3 +55,8 @@ pub fn read_f32<R: Read>(reader: &mut R) -> Result<f32> {
 
     Ok(val)
 }
+
+/// Performs a case-insensitive string comparison.
+pub fn string_eq_ignore_case(a: &str, b: &str) -> bool {
+    a == b || a.to_lowercase() == b.to_lowercase()
+}

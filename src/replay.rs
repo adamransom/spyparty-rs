@@ -2,6 +2,7 @@ pub mod header;
 
 pub use header::Header;
 
+use crate::utils::string_eq_ignore_case;
 use crate::{GameResult, Result};
 use std::io::Read;
 
@@ -48,12 +49,12 @@ impl Replay {
 
     /// Checks if the spy in this replay is a particular player.
     pub fn has_spy(&self, name: &str) -> bool {
-        if self.header.spy_user_name == name {
+        if string_eq_ignore_case(&self.header.spy_user_name, name) {
             return true;
         }
 
         if let Some(display_name) = &self.header.spy_display_name {
-            return display_name == name;
+            return string_eq_ignore_case(display_name, name);
         }
 
         false
@@ -61,12 +62,12 @@ impl Replay {
 
     /// Checks if the sniper in this replay is a particular player.
     pub fn has_sniper(&self, name: &str) -> bool {
-        if self.header.sniper_user_name == name {
+        if string_eq_ignore_case(&self.header.sniper_user_name, name) {
             return true;
         }
 
         if let Some(display_name) = &self.header.sniper_display_name {
-            return display_name == name;
+            return string_eq_ignore_case(display_name, name);
         }
 
         false
@@ -145,6 +146,14 @@ mod tests {
     }
 
     #[test]
+    fn has_player_spy_user_name_ignore_case() {
+        let mut replay: Replay = Default::default();
+        replay.header.spy_user_name = "Test".to_string();
+
+        assert!(replay.has_player("test"));
+    }
+
+    #[test]
     fn has_player_spy_display_name() {
         let mut replay: Replay = Default::default();
         replay.header.spy_display_name = Some("test".to_string());
@@ -158,6 +167,14 @@ mod tests {
         replay.header.sniper_user_name = "test".to_string();
 
         assert!(replay.has_player("test"));
+    }
+
+    #[test]
+    fn has_player_sniper_user_name_ignore_case() {
+        let mut replay: Replay = Default::default();
+        replay.header.spy_user_name = "test".to_string();
+
+        assert!(replay.has_player("Test"));
     }
 
     #[test]

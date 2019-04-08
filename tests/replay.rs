@@ -278,7 +278,10 @@ fn valid_replay_v2() {
     assert_eq!(replay.header.sniper_display_name, None);
     assert_eq!(replay.header.result_data.version, 0);
     assert_eq!(replay.header.result_data.simple_rules, None);
-    assert_eq!(replay.header.result_data.game_result, GameResult::MissionsWin);
+    assert_eq!(
+        replay.header.result_data.game_result,
+        GameResult::MissionsWin
+    );
     assert_eq!(replay.header.result_data.game_mode, GameMode::Known(7));
     assert_eq!(replay.header.result_data.map, Map::OldVeranda);
     assert_eq!(
