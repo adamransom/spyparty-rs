@@ -1,5 +1,5 @@
 use crate::utils;
-use crate::{Error, GameMode, GameResult, Map, Mission, Result};
+use crate::{Error, GameMode, GameResult, Map, MapVariant, Mission, Result};
 use std::convert::TryInto;
 use std::io::Read;
 
@@ -20,7 +20,7 @@ pub struct ResultData {
     /// The map the game was played on.
     pub map: Map,
     /// The variant of the map layout (currently only used by Teien).
-    pub map_variant: u32,
+    pub map_variant: MapVariant,
     /// The missions that the spy selected.
     pub selected_missions: Vec<Mission>,
     /// The missions that the spy picked (for "Pick" game mode).
@@ -132,7 +132,12 @@ impl ResultData {
     ///
     /// This is currently only used by the Teien map for the various layouts shoji panes.
     fn set_map_variant<R: Read>(&mut self, reader: &mut R) -> Result<()> {
-        self.map_variant = utils::read_u32(reader)?;
+        let variant = utils::read_u32(reader)?;
+
+        self.map_variant = match self.map {
+            Map::Teien => MapVariant::Teien(variant.try_into()?),
+            _ => MapVariant::None,
+        };
 
         Ok(())
     }

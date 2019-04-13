@@ -1,6 +1,6 @@
 extern crate spyparty;
 
-use spyparty::{GameMode, GameResult, Map, Mission, Replay};
+use spyparty::{GameMode, GameResult, Map, MapVariant, Mission, Replay, TeienVariant};
 use std::fs::File;
 
 #[test]
@@ -35,7 +35,10 @@ fn valid_replay_v6() {
     );
     assert_eq!(replay.header.result_data.game_mode, GameMode::Any(4, 8));
     assert_eq!(replay.header.result_data.map, Map::Teien);
-    assert_eq!(replay.header.result_data.map_variant, 4);
+    assert_eq!(
+        replay.header.result_data.map_variant,
+        MapVariant::Teien(TeienVariant::BooksBooksStatues)
+    );
     assert_eq!(
         replay.header.result_data.selected_missions,
         vec![
@@ -105,6 +108,7 @@ fn valid_replay_v5() {
     );
     assert_eq!(replay.header.result_data.game_mode, GameMode::Any(3, 5));
     assert_eq!(replay.header.result_data.map, Map::Terrace);
+    assert_eq!(replay.header.result_data.map_variant, MapVariant::None);
     assert_eq!(
         replay.header.result_data.selected_missions,
         vec![
@@ -159,6 +163,7 @@ fn valid_replay_v4() {
     assert_eq!(replay.header.result_data.game_result, GameResult::SpyShot);
     assert_eq!(replay.header.result_data.game_mode, GameMode::Known(4));
     assert_eq!(replay.header.result_data.map, Map::Ballroom);
+    assert_eq!(replay.header.result_data.map_variant, MapVariant::None);
     assert_eq!(
         replay.header.result_data.selected_missions,
         vec![
@@ -214,6 +219,7 @@ fn valid_replay_v3() {
     assert_eq!(replay.header.result_data.game_result, GameResult::SpyShot);
     assert_eq!(replay.header.result_data.game_mode, GameMode::Any(5, 8));
     assert_eq!(replay.header.result_data.map, Map::Veranda);
+    assert_eq!(replay.header.result_data.map_variant, MapVariant::None);
     assert_eq!(
         replay.header.result_data.selected_missions,
         vec![
@@ -284,6 +290,7 @@ fn valid_replay_v2() {
     );
     assert_eq!(replay.header.result_data.game_mode, GameMode::Known(7));
     assert_eq!(replay.header.result_data.map, Map::OldVeranda);
+    assert_eq!(replay.header.result_data.map_variant, MapVariant::None);
     assert_eq!(
         replay.header.result_data.selected_missions,
         vec![
