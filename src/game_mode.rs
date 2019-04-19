@@ -52,7 +52,6 @@ impl<'a> TryFrom<&'a str> for GameMode {
         }
 
         if let Some(caps) = RE.captures(&stripped) {
-            println!("{:?}", caps);
             let required: u8 = caps["required"]
                 .parse()
                 .map_err(|_| Error::UnknownGameMode(string.to_string()))?;
