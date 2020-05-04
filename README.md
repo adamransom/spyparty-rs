@@ -2,7 +2,7 @@
 
 [![Latest version](https://img.shields.io/crates/v/spyparty.svg)](https://crates.io/crates/spyparty)
 [![Documentation](https://docs.rs/spyparty/badge.svg)](https://docs.rs/spyparty)
-![Minimum rustc version](https://img.shields.io/badge/rustc-1.34+-yellow.svg)
+![Minimum Rust version](https://img.shields.io/badge/rust-stable-green.svg)
 ![License](https://img.shields.io/crates/l/spyparty.svg)
 
 A Rust library for parsing [SpyParty][1] replays.
