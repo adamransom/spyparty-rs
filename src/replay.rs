@@ -28,17 +28,17 @@ impl Replay {
 
     pub fn spy_name(&self) -> &String {
         if let Some(name) = &self.header.spy_display_name {
-            return name;
+            name
         } else {
-            return &self.header.spy_user_name;
+            &self.header.spy_user_name
         }
     }
 
     pub fn sniper_name(&self) -> &String {
         if let Some(name) = &self.header.sniper_display_name {
-            return name;
+            name
         } else {
-            return &self.header.sniper_user_name;
+            &self.header.sniper_user_name
         }
     }
 
